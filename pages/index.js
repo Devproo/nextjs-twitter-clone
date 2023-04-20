@@ -1,9 +1,10 @@
+/* eslint-disable @next/next/no-typos */
 import Feed from "@/components/Feed";
 import Login from "@/components/Login";
 import Modal from "@/components/Modal";
 import Sidebar from "@/components/Sidebar";
 import { AppContext } from "@/contexts/AppContext";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useContext } from "react";
 
@@ -28,4 +29,13 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+export async function getserverSideProps(context) {
+  const session = await getSession(context);
+  return {
+    props: {
+      session,
+    },
+  };
 }
